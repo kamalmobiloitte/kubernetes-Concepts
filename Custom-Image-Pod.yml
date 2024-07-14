@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+      name: ng-image-pod      
+spec:
+      containers:
+      - name: custom-imagesc
+        image: jokerbindass/publicrepo:tagname
+        ports:
+        - containerPort: 80
+        env:
+        - name: ApplicationEnvName
+          valueFrom:
+              configMapKeyRef:
+                 name: our-configmap
+                 key: ApplicationName
+        - name: EnvironmentName
+          valueFrom:
+              configMapKeyRef:
+                 name: our-configmap
+                 key: env.Name

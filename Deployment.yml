@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: first-deployment
+   labels:
+      tier: frontend
+spec:
+  replicas: 2
+  selector:
+     matchLabels:
+         resource: load-balancer
+  template:
+     metadata:
+        name: my-nginx-deployment
+        labels:
+          resource: load-balancer
+     spec:
+       containers:
+       - name: my-nginx
+         image: nginx:alpine
+         ports:
+         - containerPort: 80
+         resources:
+            limits:
+               memory: "200Mi"
+               cpu: "200m"
+         
